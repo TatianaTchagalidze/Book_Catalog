@@ -52,7 +52,6 @@ public class BookCatalogRepository {
       book.setGenre(resultSet.getString("genre"));
       book.setPublishedYear(resultSet.getInt("publishedYear"));
 
-      // Log the retrieved values
       System.out.println("BookRowMapper - ID: " + book.getId() + ", Title: " + book.getTitle() + ", Author: " + book.getAuthor() + ", Genre: " + book.getGenre() + ", PublishedYear: " + book.getPublishedYear());
 
       return book;
