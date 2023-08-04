@@ -1,6 +1,8 @@
 package com.example.book_catalog.repository;
 
+
 import com.example.book_catalog.entity.Book;
+import com.example.book_catalog.exceptions.NoBooksFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -28,8 +30,14 @@ public class BookCatalogRepository {
 
   public List<Book> findAll() {
     String sql = "SELECT * FROM Book";
-    return jdbcTemplate.query(sql, new BookRowMapper());
+    List<Book> books = jdbcTemplate.query(sql, new BookRowMapper());
+    if (books.isEmpty()) {
+      throw new NoBooksFoundException("No books found");
+    }
+    return books;
   }
+
+
 
   public void save(Book book) {
     String sql = "INSERT INTO Book (title, author, genre, publishedYear) VALUES (?, ?, ?, ?)";
